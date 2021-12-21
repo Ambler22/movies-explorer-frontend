@@ -1,0 +1,61 @@
+.checkbox {
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 18px;
+}
+
+.checkbox__image {
+  height: 16px;
+  width: 36px;
+  margin-left: 14px;
+  -webkit-appearance: none;
+  outline: none;
+  background-color: #202020;
+  border-radius: 16px;
+  transition: .5s;
+  position: relative;
+}
+
+.checkbox__image:checked {
+  background-color: #202020
+}
+
+.checkbox__image:before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 2px;
+  left: 2px;
+  background-color: #3DDC84;;
+  box-shadow: 0px 4px 4px rgba(50, 50, 71, 0.08), 0px 4px 8px rgba(50, 50, 71, 0.06);
+  transition: .5s;
+  transform: scale(1.1);
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.checkbox__image:checked:before {
+  left: 18px;
+}
+
+.checkbox__name {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  color: #FFFFFF;
+}
+
+@media (max-width: 590px) {
+  .checkbox__name {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
