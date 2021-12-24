@@ -1,6 +1,6 @@
 .techs {
   font-family: 'Inter', Arial, sans-serif;
-  background-color: #202020;
+  background-color: #272727;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,6 +118,7 @@
 @media (max-width: 590px) {
   .techs {
     padding: 61px 18px;
+    background-color: #202020;
   }
 
   .techs__title {
