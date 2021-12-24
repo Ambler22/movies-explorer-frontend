@@ -1,6 +1,6 @@
 .not-found {
   background-color: #202020;
-  font-family: Inter;
+  font-family: 'Inter', Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;

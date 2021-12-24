@@ -1,14 +1,14 @@
 import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = () => {
+const MoviesCardList = ({ onClick, className }) => {
   return (
     <ul className="cards">
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
+      <MoviesCard buttonName={className} handleClick={onClick} />
+      <MoviesCard buttonName={className} handleClick={onClick} />
+      <MoviesCard buttonName={className} handleClick={onClick} />
+      <MoviesCard buttonName={className} handleClick={onClick} />
+      <MoviesCard buttonName={className} handleClick={onClick} />
 {/*       <MoviesCard />
       <MoviesCard />
       <MoviesCard /> */}

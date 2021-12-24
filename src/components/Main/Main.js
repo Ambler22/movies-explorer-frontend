@@ -7,13 +7,13 @@ import Portfolio from "./Portfolio/Portfolio";
 
 const Main = () => {
   return(
-      <div>
+      <main>
         <Promo/>
         <AboutProject/>
         <Techs/>
         <AboutMe/>
         <Portfolio/>
-      </div>
+      </main>
   )
 };
 
