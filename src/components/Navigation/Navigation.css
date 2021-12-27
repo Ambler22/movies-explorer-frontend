@@ -1,0 +1,251 @@
+.navigation__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 183px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+  
+.navigation__link {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #FFFFFF;
+}
+
+.navigation__link:nth-of-type(2) {
+  color: #000;
+  background-color: #3DDC84;
+  width: 76px;
+  height: 32px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation__link:hover {
+  opacity: 0.5;
+  transition: opacity .2s ease-in-out;
+}
+
+.navigation__accaunt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  margin: 0;
+  padding: 8px 12px;
+  width: 100px;
+  height: 32px;
+  border: 2px solid #AAAAAA;
+  box-sizing: border-box;
+  border-radius: 50px;
+}
+
+.navigation__accaunt_loggedIn {
+  margin-left: auto;
+}
+
+.navigation__accaunt:hover {
+  opacity: 0.5;
+  transition: opacity .2s ease-in-out;
+}
+
+.navigation__icon {
+  width: 12px;
+  height: 14px;
+  margin-right: 7px;
+}
+
+.navigation__text {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFFFFF;
+}
+
+.navigation__burger {
+  margin: 0;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 12px;
+  right: 30px;
+}
+
+.navigation__burger:hover {
+  opacity: 0.5;
+  transition: opacity .2s ease-in-out;
+  cursor: pointer;
+}
+
+.navigation__pages {
+  margin: 0;
+  padding: 0;
+  margin-left: 44px;
+  list-style: none;
+  max-width: 212px;
+  height: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.navigation__pages_view_mobile {
+  display: none;
+}
+
+.navigation__page:first-of-type {
+  display: none;
+}
+
+.navigation__page {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: right;
+  color: #FFFFFF;
+}
+
+.navigation__page:hover {
+  opacity: 0.5;
+  transition: opacity .2s ease-in-out;
+  cursor: pointer;
+}
+
+.navigation__page_view_mobile:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+.navigation__pages {
+  display: none;
+}
+
+.navigation__pages_view_mobile {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -12px;
+  right: -30px;
+  background-color: #202020;;
+  z-index: 3;
+  max-width: 520px;
+  width: 100%;
+  justify-self: flex-start;
+}
+
+/* .navigation__pages_view_mobile-active {
+} */
+
+.navigation__accaunt {
+  display: none;
+}
+
+.navigation__page_view_mobile {
+  margin: 0 90px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.navigation__page_view_mobile:first-of-type {
+  display: flex;
+  margin-top: 159px;
+}
+
+.navigation__page_view_mobile:nth-of-type(2) {
+  margin: 28px;
+}
+
+ .navigation__accaunt_view_mobile {
+  margin: 621px 210px 90px;
+  padding: 9px 12px;
+  width: 100px;
+  height: 32px;
+  border: 2px solid #AAAAAA;
+  box-sizing: border-box;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navigation__accaunt_view_mobile:hover {
+  opacity: 0.5;
+  transition: opacity .2s ease-in-out;
+}
+}
+
+@media (max-width: 690px) {
+  .navigation__links {
+    max-width: 132px;
+  }
+
+  .navigation__link {
+    font-size: 10px;
+  }
+
+  .navigation__link:nth-of-type(2) {
+    width: 54px;
+    height: 26px;
+  }
+
+  .navigation__pages_view_mobile {
+    right: 0px;
+    width: 590px;
+  }
+}
+
+@media (max-width: 590px) {
+  .navigation__burger {
+    right: 8px;
+  }
+
+  .navigation__pages_view_mobile {
+    right: -10px;
+    width: 320px;
+  }
+
+  .navigation__page_view_mobile {
+    margin: 0 10px;
+  }
+
+  .navigation__accaunt_view_mobile {
+    margin: 444px 107px 46px;
+  }
+
+  .navigation__page_view_mobile:first-of-type {
+    margin-top: 145px;
+  }
+
+  .navigation__page_view_mobile:nth-of-type(2) {
+    margin: 24px;
+  }
+}

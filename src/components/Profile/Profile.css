@@ -1,0 +1,140 @@
+.profile {
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.profile__content {
+  margin: 0;
+  padding: 0;
+  max-width: 410px;
+  width: 100%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profile__title {
+  margin: 0 0 120px 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.profile__container {
+  display: flex;
+  align-items: center;
+  max-width: 410px;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid #424242;
+}
+
+.profile__container:last-of-type {
+  border-bottom: none;
+  margin-bottom: 220px;
+}
+
+.profile__name {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #FFFFFF;
+  text-align: start;
+}
+
+.profile__input {
+  width: 80%;
+  border: none;
+  min-height: 31px;
+  background-color: #202020;
+  text-align: end;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #FFFFFF;
+  outline: none;
+}
+
+.profile__button-edit {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #FFFFFF;
+  border: none;
+  background-color: #202020;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.profile__button-edit:hover {
+  transition: opacity .2s ease-in-out;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.profile__button-exit {
+  border: none;
+  background-color: #202020;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #EE3465;
+}
+
+.profile__button-exit:hover {
+  transition: opacity .2s ease-in-out;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .profile {
+    padding-top: 233px;
+    padding-bottom: 269px;
+  }
+
+  .profile__title {
+    margin-bottom: 92px;
+  }
+
+  .profile__container:last-of-type {
+    margin-bottom: 206px;
+  }
+}
+
+@media (max-width: 590px) {
+  .profile {
+    padding-top: 66px;
+    padding-bottom: 40px;
+  }
+
+  .profile__title {
+    margin-bottom: 77px;
+  }
+
+  .profile__container {
+    max-width: 260px;
+  }
+  
+  .profile__container:last-of-type {
+    margin-bottom: 376px;
+  }
+}
