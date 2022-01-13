@@ -101,6 +101,15 @@
   cursor: pointer;
 }
 
+.button-disabled {
+  opacity: 0.2;
+}
+
+.button-disabled:hover {
+  cursor: none;
+  opacity: 0.2;
+}
+
 .form__question {
   margin: 0;
   padding: 0;

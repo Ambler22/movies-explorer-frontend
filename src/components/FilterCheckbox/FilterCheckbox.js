@@ -1,6 +1,7 @@
 import React from "react";
 
 const FilterCheckbox = () => {
+
   return (
     <div className="checkbox">
       <label className="checkbox__name" htmlFor="checkbox">Короткометражки</label>
