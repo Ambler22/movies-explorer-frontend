@@ -27,3 +27,5 @@
 @import url(./components/Footer/Footer.css);
 
 @import url(./components/PagesNotFound/PagesNotFound.css);
+
+@import url(./components/PopupError/PopupError.css);

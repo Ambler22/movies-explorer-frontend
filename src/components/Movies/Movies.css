@@ -58,3 +58,18 @@
     margin: 57px 0 80px 0;
   }
 }
+
+.movies__search-error {
+  display: block;
+
+  margin: 0;
+  padding-top: 10%;
+
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.movies__search-error-hidden {
+  display: none;
+}

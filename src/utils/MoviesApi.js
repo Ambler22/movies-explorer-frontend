@@ -21,12 +21,12 @@ class MoviesApi {
   };
 
   findMovies() {
-    return fetch(this._url, {
+    return fetch(`${this._url}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      // credentials: 'include', // убрала на время, чтобы добраться до фильмов
+      // credentials: 'include', 
     })
     .then((res) => this._getResponseData(res));
   }

@@ -1,0 +1,103 @@
+.popup {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity visibility;
+    transition-duration: .3s;
+    transition-timing-function: linear;
+  }
+  
+  .popup_is-opened {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup__content {
+    max-width: 430px;
+    min-height: 370px;
+    width: 100%;
+    background-color: #272727;;
+    border-radius: 10px;
+    position: relative;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup__close {
+    padding: 0;
+    background-image: url(../../images/close_popup.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: transparent;
+    border: 0;
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: -37px;
+    right: -37px;
+  }
+  
+  .popup__close:hover {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity .5s ease-in-out;
+  }
+  
+  .popup__icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 0;
+  }
+  
+  .popup__title {
+    margin: 0;
+    max-width: 330px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  @media (max-width: 690px) {
+    .popup__content {
+      max-width: 290px;
+      padding: 0 25px;
+      min-height: 290px;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .popup__content {
+      max-width: 260px;
+      padding: 0 15px;
+      min-height: 260px;
+    }
+  
+    .popup__close {
+      width: 40px;
+      height: 40px;
+      top: -30px;
+      right: -30px;
+    }
+  }

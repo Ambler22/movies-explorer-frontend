@@ -1,21 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import SearchForm from "./SharchForm/SharchForm";
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import Preloader from './Preloader/Preloader';
+import { CurrentUserContext } from "../../context/CuttentUserContext";
+import Preloader from '../Movies/Preloader/Preloader';
 
-const Movies = (props) => {
+const Movies = ({movies, setMovies, searchMovie, savedMovies, setSavedMovies, handleSaveMovies, searchError, setSearchError}) => {
+  const [preloader, setPreloader] = React.useState(false);
+/*   const currentUser = useContext(CurrentUserContext);
+  const [search, setSearch] = useState('');
+  const [isSearched, setIsSearched] = useState(true);
+  const [isFound, setIsFound] = useState(false);
+  const [result, setResult] = useState(savedMovies || []);
 
-  const [isLiked, setIsLiked] = useState(false);
-/*   const [isLoading, setIsLoading] = useState(false); */
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
-  const like = isLiked ? '-active' : '';
+  const handleSubmit = (e) => {
+    setIsSearched(false);
+    e.preventDefault();
+    handleSearchMovie(search);
+    /* setIsSearched(true) */
+/*     setTimeout(() => setIsSearched(true), 1000);
+  }; */
 
-  const handleLikeClick = () => setIsLiked(!isLiked);
-/*   const handleLoadClick = () => setIsLoading(!isLoading); */
+/*   useEffect(() => { // проверить,
+    setResult(savedMovies);
+  }, [savedMovies]); */
 
+/*   useEffect(() => {
+    const searchResult = localStorage.getItem('search');
+    if (searchResult && searchResult !== 'undefined' && JSON.parse(searchResult).length > 0) {
+        setMovies(JSON.parse(searchResult));
+    }
+}, [setMovies]); */
+
+// кнопка еще
   const [moviesCount, setMoviesCount] = React.useState(0);
-
   const windowWidth = document.documentElement.clientWidth;
+  const location = useLocation();
 
   function renderMovies() {
       if (windowWidth >= 1000) {
@@ -60,14 +84,26 @@ const Movies = (props) => {
   return (
     <section className="movies">
       <div className="movies__content">
-        <SearchForm searchMovie={props.searchMovie} />
-        <MoviesCardList
-          onClick={handleLikeClick}
-          className={like}
-          movies={props.movies}
+        <SearchForm /* searchMovie={props.searchMovie} onChange={handleSearch} handleSearchCard={props.handleSearchMovies} onSubmit={handleSubmit} */
+        searchMovie={searchMovie}/>
+        {preloader && (<Preloader/>)}
 
-          moviesCount={moviesCount}/>
-        <button className="movies__button" onClick={handleAddMovies}>Еще</button>
+        <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
+          Ничего не найдено!
+        </h2>
+        {movies ?
+        <MoviesCardList
+          movies={movies}
+          setMovies={setMovies}
+          moviesCount={moviesCount}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
+          /*onClick={handleLikeClick}
+          className={like} */
+          handleSaveMovies={handleSaveMovies} /> : null}
+          { (moviesCount >= movies.length) ? null :
+         <button className="movies__button" onClick={handleAddMovies}>Еще</button>
+          }
       </div>
 
     </section>

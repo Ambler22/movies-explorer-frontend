@@ -3,28 +3,6 @@ import { CurrentUserContext } from "../../context/CuttentUserContext";
 import useWithValidation from '../../utils/useValidation';
 
 const Profile = ({ handleUpdateUser, signOut }) => {
-/*   const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-
-  const currentUser = useContext(CurrentUserContext);
-
-  const handleUserNameChange = (e) => setUserName(e.target.value);
-  const handleUserEmailChange =(e) => setUserEmail(e.target.value);
-
-  useEffect(() => {
-    setUserName(currentUser.userName);
-    setUserEmail(currentUser.userEmail);
-  }, [currentUser]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    handleUpdateUser({
-      name: userName,
-      email: userEmail,
-    });
-  }; */
-
   const [isUpdateUser, setIsUpdateUser] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const userName = currentUser.name;
@@ -45,8 +23,9 @@ const Profile = ({ handleUpdateUser, signOut }) => {
     );
   }, [values.name, values.email, userName, userEmail]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    console.log('123');
+    e.preventDefault();
     handleUpdateUser({
         name: values.name,
         email: values.email,
@@ -61,15 +40,19 @@ const Profile = ({ handleUpdateUser, signOut }) => {
     <form className="profile">
         <fieldset className="profile__content">
         <h2 className="profile__title">{`Привет, ${userName}!`}</h2>
+        <span className="form__error">{errors.name}</span>
         <div className="profile__container">
           <p className="profile__name">Имя</p>
-          <input className="profile__input" minLength={2} maxLenght={30} required type="text" placeholder="" defaultValue={values.name || ''} onChange={handleChange} /* defaultValue={currentUser.name} onChange={handleUserNameChange} */></input>
+          <input className="profile__input" minLength={2} maxLenght={30} required type="text" name="name" placeholder="" value={values.name || ''} onChange={handleChange}></input>
         </div>
+        <div className="profile__span">
         <div className="profile__container">
           <p className="profile__name">E-mail</p>
-          <input className="profile__input" required type="email" placeholder="" defaultValue={values.email || ''} onChange={handleChange} /* defaultValue={currentUser.email} onChange={handleUserEmailChange} */></input>
+          <input className="profile__input" required type="email" name="email" placeholder="" value={values.email || ''} onChange={handleChange}></input>
         </div>
-        <button className="profile__button-edit" type="submit" onClick={handleSubmit}>Редактировать</button>
+        <span className="form__error">{errors.email}</span>
+        </div>
+        <button className={`profile__button-edit ${ !isValid ? `button-disabled` : "" }`} type="submit" onClick={handleSubmit}>Редактировать</button>
         <button className="profile__button-exit" type="button" onClick={handleSignOut}>Выйти из аккаунта</button>
       </fieldset>
     </form>

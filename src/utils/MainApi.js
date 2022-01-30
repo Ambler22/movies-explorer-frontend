@@ -57,7 +57,7 @@ class Api {
   //movie
 
   deleteMovie(movieId) {
-    return fetch(`${this._url}/movies/:movieId`, {
+    return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: this._checkToken(this._headers),
@@ -65,6 +65,38 @@ class Api {
     .then((res) => this._getResponseData(res));
   };
 
+  saveMovie(token, {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    id,
+}) {
+    return fetch(`${this._url}/movies`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: this._checkToken(this._headers),
+      body: JSON.stringify({
+        country: country === "" ? nameEN : country,
+        director,
+        duration,
+        year,
+        description,
+        image: `https://api.nomoreparties.co${image.url}`,
+        trailerLink:  trailerLink === null ? `https://api.nomoreparties.co${image.url}` : trailerLink,
+        thumbnail: `https://api.nomoreparties.co${image.url}`,
+        nameRU, 
+        nameEN: nameEN === '' ? nameRU : nameEN,
+        movieId: id,
+    })
+    })
+    .then((res) => this._getResponseData(res));
+  }
 
   // я х знает
   getSavedMovies(token) {
