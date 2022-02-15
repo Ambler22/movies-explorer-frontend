@@ -37,15 +37,16 @@ const App = () => {
   const [isErrorPopupOpened, setIsErrorPopupOpened] = useState(false);
   const [isProfilePopup, setIsProfilePopup] = useState(false);
 
-  // пока тест
-  const [isCheckBoxOpen, setIsCheckBoxOpen] = React.useState(false);
-  const [searchError, setSearchError] = React.useState(false);
+  const [isCheckBoxOpen, setIsCheckBoxOpen] = useState(false);
+  const [searchError, setSearchError] = useState(false);
+  const [checkbox, setCheckbox] = useState(false);
+  const [checkSavedCards, setCheckSavedCards] = useState(false);
   //
 
   // Данные 
   useEffect(()=> {
     if (token) {
-      auth.getContent(token)
+      auth.getData(token)
       .then((userInfo) => {
         setIsLoggedIn(true);
         setIsRegistered(true);
@@ -57,20 +58,20 @@ const App = () => {
 
       //Регистрация
   const handleRegistration = (email, password, name) => {
-    auth.register(email, password, name)
+    auth.registration(email, password, name)
       .then(() => {
         handleAuthorization(email, password);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err)
         setIsRegistered(false)
-        handleOpenErrorPopup();
+        handleOpenPopupError();
       })
   };
 
        //Авторизация
   const handleAuthorization = (email, password) => {
-    auth.authorize(email, password)
+    auth.authorization(email, password)
       .then((data) => {
         if(data.token) {
           localStorage.setItem('jwt', data.token);
@@ -79,9 +80,9 @@ const App = () => {
           navigate('/movies', {replace: true});
         }
       })
-      .catch((error) => {
-        console.log(error);
-        handleOpenErrorPopup();
+      .catch((err) => {
+        console.log(err)
+        handleOpenPopupError();
       })
   };
 
@@ -106,24 +107,21 @@ const App = () => {
       })
       .catch((err) => {
         console.log(err);
-        handleOpenErrorPopup();
+        handleOpenPopupError();
       })
   };
 
-//// ******* ////
-// пробую сделать тест поиска
-const searchMovie = (text) => {
-  if (isLoggedIn) {
+      // Поиск фильмов
+  const searchMovie = (text) => {
+    if (isLoggedIn) {
       const jwt = localStorage.getItem('jwt');
 
       if (location.pathname === '/movies') {
 
           if (!localStorage.getItem('all-movies')) {
-            console.log(localStorage.getItem('all-movies'))
-            moviesApi.findMovies()
+            moviesApi.getMovies()
                   .then((data) => {
                       setMovies(filterMovies(data, text));
-
                       const allMovies = JSON.stringify(data);
                       localStorage.setItem('all-movies', allMovies);
                   })
@@ -137,7 +135,6 @@ const searchMovie = (text) => {
           api.getSavedMovies(jwt)
               .then((res) => {
                   setSavedMovies(filterMovies(res, text));
-
                   const saved = JSON.parse(res);
                   localStorage.setItem('saved', saved);
               })
@@ -149,10 +146,10 @@ const searchMovie = (text) => {
 const filterMovies = (data, text) => {
   const searchList = data.filter((movie) => {
       if (movie.nameRU.toLowerCase().includes(text.toLowerCase())) {
-          if ((movie.duration <= 40) && (isCheckBoxOpen)) {
+          if ((movie.duration <= 1) && (isCheckBoxOpen)) {
               return movie;
           }
-          if ((movie.duration >= 40) && (!isCheckBoxOpen)) {
+          if ((movie.duration >= 1) && (!isCheckBoxOpen)) {
               return movie;
           }
           return false;
@@ -173,7 +170,6 @@ const filterMovies = (data, text) => {
 };
 
 useEffect(() => {
-  // const saved = localStorage.getItem('saved');
   if (localStorage.getItem('saved')) {
       setSavedMovies(JSON.parse(localStorage.getItem('saved')));
   }
@@ -196,36 +192,10 @@ useEffect(() => {
       localStorage.setItem('saved', JSON.stringify(savedMovies));
   }
 }, [savedMovies]);
-//// ******* ////
-
-  // сохранить фильм
-/*  const handleSaveMovies = () => {
-  const jwt = localStorage.getItem('jwt');
-
-  api.saveMovie(jwt, movie)
-    .then((res) => {
-      if (res._id) {
-      setSavedMovies([...savedMovies, res]); */
-      /* localStorage.setItem('saved', JSON.stringify(...savedMovies.data)); */
-/*       }
-      console.log('сохранен')
-    })
-    .catch(err => console.log(err))
- }; */
-
-//удаление фильма
-/* const handleDeleteMovies = (movie) => {
-  api.deleteMovie(movie._id)
-    .then(() => {
-      localStorage.setItem('saved', JSON.stringify(savedMovies.filter((item) => item !== movie)));
-      setSavedMovies(savedMovies.filter((item) => item !== movie));
-    })
-    .catch(err => console.log(err))
-}; */
 
     // попапы
-const handleOpenErrorPopup = () => setIsErrorPopupOpened(true);
-const handleCloseErrorPopup = () => setIsErrorPopupOpened(false);
+const handleOpenPopupError = () => setIsErrorPopupOpened(true);
+const handleClosePopupError = () => setIsErrorPopupOpened(false);
 
 const showProfilePopup = () => {
   setIsProfilePopup(true)
@@ -234,22 +204,22 @@ const showProfilePopup = () => {
 
  //Закрытие попапа на Esc
  useEffect(() => {
-  const closeErrorPopupByEscape = (event) => {
+  const closeErrorPopupByEsc = (event) => {
     if (event.key === 'Escape') {
-      handleCloseErrorPopup();
+      handleClosePopupError();
     }
   }
-  document.addEventListener('keydown', closeErrorPopupByEscape)
-  return () => document.removeEventListener('keydown', closeErrorPopupByEscape)
+  document.addEventListener('keydown', closeErrorPopupByEsc)
+  return () => document.removeEventListener('keydown', closeErrorPopupByEsc)
 }, []);
 
     return (
       <CurrentUserContext.Provider value={currentUser}>
-      <>
+      <div className="page">
         <Routes>
           <Route path='/' element={
             <>
-              <Header />
+              <Header isLoggedIn={token}/>
               <Main />
               <Footer />
             </>
@@ -258,18 +228,19 @@ const showProfilePopup = () => {
           <Route path='/movies' element={
             <ProtectedRoute isLoggedIn={token}>
               <>
-                <Header type="loggedIn" />
+                <Header isLoggedIn={token} />
                 <Movies
                   movies={movies}
                   setMovies={setMovies}
                   searchMovie={searchMovie}
                   savedMovies={savedMovies}
                   setSavedMovies={setSavedMovies}
-                  /* handleSearchMovie={handleSearchMovie} */
-                  /* handleSaveMovies={handleSaveMovies} */
-                  
+
                   searchError={searchError}
-                  setSearchError={setSearchError}/>
+                  setSearchError={setSearchError}
+
+                  checkbox={checkbox}
+                  setCheckbox={setCheckbox}/>
                 <Footer />
               </>
             </ProtectedRoute>
@@ -278,17 +249,18 @@ const showProfilePopup = () => {
           <Route path='/saved-movies' element={
             <ProtectedRoute isLoggedIn={token}>
               <>
-                <Header type="loggedIn" />
+                <Header isLoggedIn={token} />
                 <SavedMovies 
-                  /* movies={movies} */
                   movies={savedMovies}
                   searchMovie={searchMovie}
                   savedMovies={savedMovies}
                   setSavedMovies={setSavedMovies}
+
                   searchError={searchError}
                   setSearchError={setSearchError}
-                  /* onDelete={handleDeleteMovies} */
-                  /* handleSearchMovie={handleSearchMovie} */ 
+
+                  checkbox={checkSavedCards}
+                  setCheckbox={setCheckSavedCards}
                   />
                 <Footer />
               </>
@@ -298,8 +270,11 @@ const showProfilePopup = () => {
           <Route path='/profile' element={
             <ProtectedRoute isLoggedIn={token}>
               <>
-                <Header type="loggedIn" />
-                <Profile isLoggedIn={token} name={currentUser.name} handleUpdateUser={handleUpdateUser} signOut={signOut}/>
+                <Header isLoggedIn={token} />
+                <Profile isLoggedIn={token}
+                  name={currentUser.name}
+                  handleUpdateUser={handleUpdateUser}
+                  signOut={signOut}/>
               </>
             </ProtectedRoute>
           } />
@@ -308,10 +283,11 @@ const showProfilePopup = () => {
           <Route path='/signin' element={<Login handleAuthorization={handleAuthorization}/>} />
           <Route path='*' element={<PagesNotFound />} />
         </Routes>
-      </>
+      </div>
+
       <PopupError
         isOpen={isErrorPopupOpened}
-        onClose={handleCloseErrorPopup}
+        onClose={handleClosePopupError}
         isRegistered={isRegistered}
         />
         <ProfilePopup onUpdate={isProfilePopup} />

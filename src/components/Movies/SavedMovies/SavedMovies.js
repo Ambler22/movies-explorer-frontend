@@ -1,28 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SearchForm from "../SharchForm/SharchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import { CurrentUserContext } from "../../../context/CuttentUserContext";
-
-//
+import Preloader from '../Preloader/Preloader';
 import api from "../../../utils/MainApi";
-//
 
-const SavedMovies = ({ movies, savedMovies, setSavedMovies, onDelete, searchMovie, handleSearchMovie, searchError, setSearchError }) => {
-  /* const [search, setIsSearch] = useState(''); */
-
-/*   const handleMovieDelete = (movie) => {
-    onDelete(movie);
-  }; */
-
-  /*  const handleSearch = (e) => {
-      setIsSearch(e.target.value);
-    }
+const SavedMovies = ({ movies, savedMovies, setSavedMovies, searchMovie, searchError, setSearchError, checkbox, setCheckbox}) => {
+  const [isSearched, setIsSearched] = useState(false);
   
-    const handleSubmit= (e) => {
-      e.preventDefault();
-      handleSearchMovie(search);
-    } */
-
     useEffect(() => {
       api.getSavedMovies(localStorage.getItem('jwt'))
       .then((res) => {
@@ -30,13 +14,24 @@ const SavedMovies = ({ movies, savedMovies, setSavedMovies, onDelete, searchMovi
       })
     }, []);
 
+    useEffect(() => {
+      setSearchError(false);
+  }, []);
+
   return (
     <section className="movies">
-      <SearchForm searchMovie={searchMovie} /* onChange={handleSearch} */ /*handleSearchMovie={handleSearchMovie} onSubmit={handleSubmit} */ />
-      <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
-                    Ничего не найдено!
-                </h2>
-      <MoviesCardList className="-delete" /* onDelete={handleMovieDelete} */ movies={movies} savedMovies={savedMovies} setSavedMovies={setSavedMovies} />
+      <SearchForm searchMovie={searchMovie} setIsSearched={setIsSearched} checkbox={checkbox} setCheckbox={setCheckbox}/>
+        <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
+          Ничего не найдено!
+        </h2>
+      { isSearched ? <Preloader /> : 
+        <MoviesCardList
+          className="-delete"
+          movies={movies}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
+          checkbox={checkbox}
+          setCheckbox={setCheckbox} /> }
     </section>
   )
 };

@@ -28,7 +28,7 @@ const Login = ({ handleAuthorization }) => {
           <input className="form__input" required id="password" name="password" type="password" placeholder="" value={values.password || ''} onChange={handleChange}></input>
           <span className="form__error">{errors.password}</span>
         </div>
-          <button className={`form__button form__login ${ !isValid ? `button-disabled` : "" }`}type="submit">Войти</button>
+          <button className={`form__button form__login ${ !isValid ? `button-disabled` : "" }`} type="submit">Войти</button>
         </fieldset>
         <p className="form__question">Ещё не зарегистрированы?<Link to='/signup' className="form__link">Регистрация</Link></p>
       </form>

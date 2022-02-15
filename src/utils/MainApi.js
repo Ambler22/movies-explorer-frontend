@@ -44,16 +44,6 @@ class Api {
     .then((res) => this._getResponseData(res));
   };
 
-/*   updateUserInfo(name, email) {
-    return fetch(`${this._url}/users/me`, {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: this._checkToken(this._headers),
-      body: JSON.stringify({ name, email }),
-    })
-    .then((res) => this._getResponseData(res));
-  }; */
-
   //movie
 
   deleteMovie(movieId) {

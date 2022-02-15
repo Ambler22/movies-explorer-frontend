@@ -44,7 +44,7 @@ export const getContent = (token) => {
   .then((res) => getResponseData(res));
 }; */
 
-export const register = (email, password, name) => {
+export const registration = (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -57,7 +57,7 @@ export const register = (email, password, name) => {
 };
 
 // логин
-export const authorize = (email, password) => {
+export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
@@ -69,7 +69,7 @@ export const authorize = (email, password) => {
   .then((res) => checkResponse(res));
 };
 
-export const getContent = (token) => {
+export const getData = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {

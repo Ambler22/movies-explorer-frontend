@@ -20,7 +20,7 @@ class MoviesApi {
     return headers;
   };
 
-  findMovies() {
+  getMovies() {
     return fetch(`${this._url}`, {
       method: 'GET',
       headers: {

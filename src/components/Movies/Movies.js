@@ -1,45 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import SearchForm from "./SharchForm/SharchForm";
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import { CurrentUserContext } from "../../context/CuttentUserContext";
 import Preloader from '../Movies/Preloader/Preloader';
 
-const Movies = ({movies, setMovies, searchMovie, savedMovies, setSavedMovies, handleSaveMovies, searchError, setSearchError}) => {
-  const [preloader, setPreloader] = React.useState(false);
-/*   const currentUser = useContext(CurrentUserContext);
-  const [search, setSearch] = useState('');
-  const [isSearched, setIsSearched] = useState(true);
-  const [isFound, setIsFound] = useState(false);
-  const [result, setResult] = useState(savedMovies || []);
+const Movies = ({
+    movies, setMovies, searchMovie, savedMovies, setSavedMovies, handleSaveMovies, searchError, setSearchError,
+    checkbox, setCheckbox
+  }) => {
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    setIsSearched(false);
-    e.preventDefault();
-    handleSearchMovie(search);
-    /* setIsSearched(true) */
-/*     setTimeout(() => setIsSearched(true), 1000);
-  }; */
-
-/*   useEffect(() => { // проверить,
-    setResult(savedMovies);
-  }, [savedMovies]); */
-
-/*   useEffect(() => {
-    const searchResult = localStorage.getItem('search');
-    if (searchResult && searchResult !== 'undefined' && JSON.parse(searchResult).length > 0) {
-        setMovies(JSON.parse(searchResult));
-    }
-}, [setMovies]); */
-
-// кнопка еще
-  const [moviesCount, setMoviesCount] = React.useState(0);
+  const [moviesCount, setMoviesCount] = useState(0);
+  const [isSearched, setIsSearched] = useState(false);
   const windowWidth = document.documentElement.clientWidth;
-  const location = useLocation();
 
   function renderMovies() {
       if (windowWidth >= 1000) {
@@ -79,31 +50,49 @@ const Movies = ({movies, setMovies, searchMovie, savedMovies, setSavedMovies, ha
     return () => {
         window.removeEventListener('resize', resizeMovies);
     }
-}, []);
-  
+  }, []);
+
+   useEffect(() => {
+    const searchResult = localStorage.getItem('search');
+    if (searchResult && searchResult !== 'undefined' && JSON.parse(searchResult).length > 0) {
+        setMovies(JSON.parse(searchResult));
+    }
+}, [setMovies]);
+
+  useEffect(() => {
+    setSearchError(false);
+  }, []);
+
   return (
     <section className="movies">
       <div className="movies__content">
-        <SearchForm /* searchMovie={props.searchMovie} onChange={handleSearch} handleSearchCard={props.handleSearchMovies} onSubmit={handleSubmit} */
-        searchMovie={searchMovie}/>
-        {preloader && (<Preloader/>)}
+        <SearchForm
+          searchMovie={searchMovie}
+          setIsSearched={setIsSearched}
 
-        <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
-          Ничего не найдено!
-        </h2>
-        {movies ?
-        <MoviesCardList
-          movies={movies}
-          setMovies={setMovies}
-          moviesCount={moviesCount}
-          savedMovies={savedMovies}
-          setSavedMovies={setSavedMovies}
-          /*onClick={handleLikeClick}
-          className={like} */
-          handleSaveMovies={handleSaveMovies} /> : null}
-          { (moviesCount >= movies.length) ? null :
-         <button className="movies__button" onClick={handleAddMovies}>Еще</button>
-          }
+          checkbox={checkbox}
+          setCheckbox={setCheckbox}/>
+
+          <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
+            Ничего не найдено!
+          </h2>
+
+          { isSearched ? <Preloader/> : (movies ?
+          <MoviesCardList
+            movies={movies}
+            setMovies={setMovies}
+
+            moviesCount={moviesCount}
+
+            savedMovies={savedMovies}
+            setSavedMovies={setSavedMovies}
+            handleSaveMovies={handleSaveMovies}
+
+            checkbox={checkbox}
+            setCheckbox={setCheckbox} /> : null)}
+            { (moviesCount >= movies.length) ? null :
+              <button className="movies__button" onClick={handleAddMovies}>Еще</button>
+            }
       </div>
 
     </section>

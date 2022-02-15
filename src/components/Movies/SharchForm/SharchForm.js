@@ -1,9 +1,13 @@
 import React, {useState} from "react";
-import { useSearchParams } from "react-router-dom";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = ({ onSubmit, onChange, searchMovie }) => {
+const SearchForm = ({ searchMovie, setIsSearched, checkbox, setCheckbox }) => {
   const [inputValue, setInputValue] = useState('');
+
+  const handleCheckbox = () => {
+    localStorage.setItem("checkboxData", JSON.stringify(!checkbox));
+    setCheckbox(!checkbox);
+  };
 
   const handleChangeInput = (evt) => {
     setInputValue(evt.target.value);
@@ -11,7 +15,9 @@ const SearchForm = ({ onSubmit, onChange, searchMovie }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    searchMovie(inputValue);
+    setIsSearched(true)
+    setTimeout(() => setIsSearched(false), 1000);
+    setTimeout(() => searchMovie(inputValue), 1001);
     setInputValue('');
   }
 
@@ -19,11 +25,11 @@ const SearchForm = ({ onSubmit, onChange, searchMovie }) => {
     <form className="sharch-form">
       <fieldset className="sharch-form__content">
         <div className="sharch-form__box">
-          <input className="sharch-form__input" type="search" placeholder="Фильм" id="film" required="false" /* onChange={onChange} */
-          onChange={handleChangeInput}></input>
+          <input className="sharch-form__input" type="search" placeholder="Фильм" id="film" required="false"
+            onChange={handleChangeInput}></input>
           <button className="sharch-form__button" onClick={handleSubmit}></button>
         </div>
-        <FilterCheckbox />
+        <FilterCheckbox onClick={handleCheckbox} defaultChecked={checkbox} />
       </fieldset>
     </form>
   )

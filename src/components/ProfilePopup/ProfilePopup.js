@@ -1,5 +1,5 @@
 import React from 'react';
-import popupImage from '../../images/profile_popup.png';
+import popupImage from '../../images/profile-popup.png';
 
 const ProfilePopup = ({ onUpdate }) => {
   return(

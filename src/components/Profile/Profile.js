@@ -10,6 +10,9 @@ const Profile = ({ handleUpdateUser, signOut }) => {
 
   const { values, setValues, handleChange, errors, isValid } = useWithValidation();
 
+  const isDisabled = values.email === '' || !isValid || values.name === '' || (values.email === userEmail && values.name === userName);
+  const profileButton = !isDisabled ? '' : ' button-disabled';
+
   useEffect(() => {
     setValues({
       name: userName,
@@ -24,7 +27,6 @@ const Profile = ({ handleUpdateUser, signOut }) => {
   }, [values.name, values.email, userName, userEmail]);
 
   const handleSubmit = (e) => {
-    console.log('123');
     e.preventDefault();
     handleUpdateUser({
         name: values.name,
@@ -52,7 +54,7 @@ const Profile = ({ handleUpdateUser, signOut }) => {
         </div>
         <span className="form__error">{errors.email}</span>
         </div>
-        <button className={`profile__button-edit ${ !isValid ? `button-disabled` : "" }`} type="submit" onClick={handleSubmit}>Редактировать</button>
+        <button className={`profile__button-edit ${ profileButton || !isValid ? `button-disabled` : "" }`} type="submit" onClick={handleSubmit}>Редактировать</button>
         <button className="profile__button-exit" type="button" onClick={handleSignOut}>Выйти из аккаунта</button>
       </fieldset>
     </form>

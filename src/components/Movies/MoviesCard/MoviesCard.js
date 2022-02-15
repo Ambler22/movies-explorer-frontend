@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
-import film from '../../../images/film.svg';
-import moviesApi from "../../../utils/MoviesApi";
-// import CardButton from "../../CardButton/CardButton";
 import api from "../../../utils/MainApi";
 
-const MoviesCard = ({ movie, setMovies, savedMovies, setSavedMovies, buttonName, handleClick, onClick, movies, /* handleSaveMovies */ /* onDelete */ }) => {
+const MoviesCard = ({ movie, savedMovies, setSavedMovies}) => {
   useEffect(() => {
     savedMovies && savedMovies.some((card) => card.nameEN === movie.nameEN) ?
         setIsLiked(true) : setIsLiked(false);
@@ -28,16 +25,14 @@ const MoviesCard = ({ movie, setMovies, savedMovies, setSavedMovies, buttonName,
   const jwt = localStorage.getItem('jwt');
 
   if(!isLiked) {
-  api.saveMovie(jwt, movie)
-    .then((res) => {
-      if (res._id) {
-      setSavedMovies([res, ...savedMovies]);
-      setIsLiked(true);
-      /* localStorage.setItem('saved', JSON.stringify(...savedMovies.data)); */
-      }
-      console.log('сохранен', movie)
-    })
-    .catch(err => console.log(err))
+    api.saveMovie(jwt, movie)
+      .then((res) => {
+        if (res._id) {
+        setSavedMovies([res, ...savedMovies]);
+        setIsLiked(true);
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   if (isLiked) {
@@ -47,18 +42,17 @@ const MoviesCard = ({ movie, setMovies, savedMovies, setSavedMovies, buttonName,
         if (res) {
           setSavedMovies(savedMovies.filter((card) => card !== liked));
           setIsLiked(false)
-          console.log('Удален')
         }
       })
   }
  };
 
+     // удаление фильма
   const handleDeleteMovie = () => {
   const jwt = localStorage.getItem('jwt');
   api.deleteMovie(movie._id, jwt)
       .then((res) => {
           if (res) {
-              /* setMovies(movies.filter((item) => item._id !== movie._id)); */
               setSavedMovies(savedMovies.filter((card) => card._id !== movie._id));
               console.log('delete')
           }
@@ -74,15 +68,10 @@ const MoviesCard = ({ movie, setMovies, savedMovies, setSavedMovies, buttonName,
 
   const buttonClassName = location.pathname === '/movies' ? like : deleteButton;
 
-/*   const handleDeleteClick = () => {
-    onDelete(movie)
-  } */
-
   const buttonClickFunction = location.pathname === '/movies' ? handleSaveMovies : handleDeleteMovie;
 
   return (
     <div className="card" id={movie._id}>
-      {/* <img className="card__image" alt="обложка фильма" src={film} /> */}
       <a className="card__link" href={movie.trailerLink} rel="noreferrer" target="_blank"><img className="card__image" src={location.pathname === '/saved-movies' ? `${movie.image}` : `https://api.nomoreparties.co${movie.image.url}`}/* {`https://api.nomoreparties.co${movie.image.url}`} */ alt={movie.nameRU} /></a>
       <div className="card__info">
         <h4 className="card__title">{movie.nameRU}</h4>
