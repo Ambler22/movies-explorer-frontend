@@ -24,9 +24,9 @@ class MoviesApi {
     return fetch(`${this._url}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      // credentials: 'include', 
+      credentials: 'include', 
     })
     .then((res) => this._getResponseData(res));
   }

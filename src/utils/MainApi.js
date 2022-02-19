@@ -88,7 +88,6 @@ class Api {
     .then((res) => this._getResponseData(res));
   }
 
-  // я х знает
   getSavedMovies(token) {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
@@ -100,6 +99,7 @@ class Api {
 }
 
 const api = new Api({
+  // url: 'http://api.movies.ex.nomoredomains.rocks',
   url: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
