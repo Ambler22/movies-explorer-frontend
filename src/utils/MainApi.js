@@ -25,7 +25,6 @@ class Api {
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
-      credentials: 'include',
       headers: this._checkToken(this._headers),
     })
     .then((res) => this._getResponseData(res));
@@ -35,7 +34,6 @@ class Api {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._checkToken(this._headers),
-      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         email: data.email,
@@ -49,7 +47,6 @@ class Api {
   deleteMovie(movieId) {
     return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
-      credentials: 'include',
       headers: this._checkToken(this._headers),
     })
     .then((res) => this._getResponseData(res));
@@ -69,7 +66,6 @@ class Api {
 }) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
-      credentials: 'include',
       headers: this._checkToken(this._headers),
       body: JSON.stringify({
         country: country === "" ? nameEN : country,
@@ -91,7 +87,6 @@ class Api {
   getSavedMovies(token) {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
-      credentials: 'include',
       headers: this._checkToken(this._headers),
     })
     .then((res) => this._getResponseData(res));
@@ -99,8 +94,8 @@ class Api {
 }
 
 const api = new Api({
-  // url: 'http://api.movies.ex.nomoredomains.rocks',
-  url: 'http://localhost:3001',
+  url: 'http://api.movies.ex.nomoredomains.rocks',
+  // url: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
   }

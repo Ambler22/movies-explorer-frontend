@@ -1,5 +1,5 @@
-export const BASE_URL = 'http://localhost:3001';
-// export const BASE_URL = 'http://api.movies.ex.nomoredomains.rocks';
+// export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'http://api.movies.ex.nomoredomains.rocks';
 
 export const registration = (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -7,7 +7,6 @@ export const registration = (email, password, name) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: 'include',
     body: JSON.stringify({ email, password, name })
   })
   .then((res) => checkResponse(res));
@@ -20,7 +19,6 @@ export const authorization = (email, password) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    credentials: 'include',
     body: JSON.stringify({ email, password })
   })
   .then((res) => checkResponse(res));
@@ -33,7 +31,6 @@ export const getData = (token) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    credentials: 'include',
   })
   .then((res) => checkResponse(res));
 };
