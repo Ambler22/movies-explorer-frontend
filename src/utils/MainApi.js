@@ -94,7 +94,7 @@ class Api {
 }
 
 const api = new Api({
-  url: 'http://api.movies.ex.nomoredomains.rocks',
+  url: 'https://api.movies.ex.nomoredomains.rocks',
   // url: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
