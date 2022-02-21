@@ -3,9 +3,12 @@ import SearchForm from "../SharchForm/SharchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from '../Preloader/Preloader';
 import api from "../../../utils/MainApi";
+import { useLocation } from 'react-router-dom';
 
-const SavedMovies = ({ movies, savedMovies, setSavedMovies, searchMovie, searchError, setSearchError, checkbox, setCheckbox}) => {
+const SavedMovies = ({ movies, setMovies, savedMovies, setSavedMovies, searchMovie, searchError, setSearchError, checkSavedCards, setCheckSavedCards}) => {
   const [isSearched, setIsSearched] = useState(false);
+/*   const [search, setIsSearch] = useState('' || localStorage.getItem('savedSearchQuery')); */
+  const location = useLocation();
   
     useEffect(() => {
       api.getSavedMovies(localStorage.getItem('jwt'))
@@ -18,9 +21,18 @@ const SavedMovies = ({ movies, savedMovies, setSavedMovies, searchMovie, searchE
       setSearchError(false);
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem('savedCheckboxData') === 'true') {
+      setCheckSavedCards(true);
+    } else {
+      setCheckSavedCards(false); 
+    }
+  }, [setCheckSavedCards]);
+
   return (
     <section className="movies">
-      <SearchForm searchMovie={searchMovie} setIsSearched={setIsSearched} checkbox={checkbox} setCheckbox={setCheckbox}/>
+      <SearchForm searchMovie={searchMovie} setIsSearched={setIsSearched} checkSavedCards={checkSavedCards} setCheckSavedCards={setCheckSavedCards}
+       /* onChange={handleSearch} search={search} onSubmit={handleSubmit} *//>
         <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
           Ничего не найдено!
         </h2>
@@ -30,8 +42,8 @@ const SavedMovies = ({ movies, savedMovies, setSavedMovies, searchMovie, searchE
           movies={movies}
           savedMovies={savedMovies}
           setSavedMovies={setSavedMovies}
-          checkbox={checkbox}
-          setCheckbox={setCheckbox} /> }
+          checkSavedCards={checkSavedCards}
+          setCheckSavedCards={setCheckSavedCards} /> }
     </section>
   )
 };

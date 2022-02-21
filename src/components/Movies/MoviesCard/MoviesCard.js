@@ -29,6 +29,7 @@ const MoviesCard = ({ movie, savedMovies, setSavedMovies}) => {
       .then((res) => {
         if (res._id) {
         setSavedMovies([res, ...savedMovies]);
+        localStorage.setItem('saved', JSON.stringify([res, ...savedMovies]));
         setIsLiked(true);
         }
       })
@@ -54,7 +55,6 @@ const MoviesCard = ({ movie, savedMovies, setSavedMovies}) => {
       .then((res) => {
           if (res) {
               setSavedMovies(savedMovies.filter((card) => card._id !== movie._id));
-              console.log('delete')
           }
       })
       .catch(err => console.log(err));

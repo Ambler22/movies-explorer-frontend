@@ -1,5 +1,5 @@
-// export const BASE_URL = 'http://localhost:3001';
-export const BASE_URL = 'https://api.movies.ex.nomoredomains.rocks';
+export const BASE_URL = 'http://localhost:3001';
+// export const BASE_URL = 'https://api.movies.ex.nomoredomains.rocks';
 
 export const registration = (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {

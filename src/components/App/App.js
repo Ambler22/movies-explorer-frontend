@@ -163,17 +163,27 @@ const filterMovies = (data, text) => {
       setSearchError(false)
   }
 
-  const searchResult = JSON.stringify(searchList);
-  localStorage.setItem('search', searchResult); 
+  if (location.pathname === '/movies') {
+    const searchResult = JSON.stringify(searchList);
+    localStorage.setItem('search', searchResult);
+  }
+
+  if (location.pathname === '/saved-movies') {
+    const searchResult = JSON.stringify(searchList);
+    localStorage.setItem('searchSaved', searchResult);
+  }
+
+ /*  const searchResult = JSON.stringify(searchList);
+  localStorage.setItem('search', searchResult);  */
 
   return searchList;
 };
 
-useEffect(() => {
+/* useEffect(() => {
   if (localStorage.getItem('saved')) {
       setSavedMovies(JSON.parse(localStorage.getItem('saved')));
   }
-}, [navigate]);
+}, [navigate]); */
 
 useEffect(() => {
   if (isLoggedIn) {
@@ -252,6 +262,7 @@ const showProfilePopup = () => {
                 <Header isLoggedIn={token} />
                 <SavedMovies 
                   movies={savedMovies}
+                  setMovies={setMovies}
                   searchMovie={searchMovie}
                   savedMovies={savedMovies}
                   setSavedMovies={setSavedMovies}
@@ -259,8 +270,8 @@ const showProfilePopup = () => {
                   searchError={searchError}
                   setSearchError={setSearchError}
 
-                  checkbox={checkSavedCards}
-                  setCheckbox={setCheckSavedCards}
+                  checkSavedCards={checkSavedCards}
+                  setCheckSavedCards={setCheckSavedCards}
                   />
                 <Footer />
               </>

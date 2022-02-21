@@ -11,6 +11,7 @@ const Movies = ({
   const [moviesCount, setMoviesCount] = useState(0);
   const [isSearched, setIsSearched] = useState(false);
   const windowWidth = document.documentElement.clientWidth;
+  const [search, setSearch] = useState('' || localStorage.getItem('searchQuery'));
 
   function renderMovies() {
       if (windowWidth >= 1000) {
@@ -59,9 +60,23 @@ const Movies = ({
     }
 }, [setMovies]);
 
+ useEffect(() => {
+   if (localStorage.getItem('saved')) {
+     setSavedMovies(JSON.parse(localStorage.getItem('saved')));
+   }
+ }, [setSavedMovies])
+
   useEffect(() => {
     setSearchError(false);
   }, []);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    setCheckbox(JSON.parse(localStorage.getItem('checkboxData')));
+  }, [setCheckbox]);
 
   return (
     <section className="movies">
@@ -71,7 +86,8 @@ const Movies = ({
           setIsSearched={setIsSearched}
 
           checkbox={checkbox}
-          setCheckbox={setCheckbox}/>
+          setCheckbox={setCheckbox}
+          onChange={handleSearch}/>
 
           <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
             Ничего не найдено!
