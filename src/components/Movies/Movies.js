@@ -11,7 +11,7 @@ const Movies = ({
   const [moviesCount, setMoviesCount] = useState(0);
   const [isSearched, setIsSearched] = useState(false);
   const windowWidth = document.documentElement.clientWidth;
-  const [search, setSearch] = useState('' || localStorage.getItem('searchQuery'));
+  const [inputValue, setInputValue] = useState('' || localStorage.getItem('searchText'));
 
   function renderMovies() {
       if (windowWidth >= 1000) {
@@ -71,8 +71,17 @@ const Movies = ({
   }, []);
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    setInputValue(e.target.value);
   };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    setIsSearched(true)
+    setTimeout(() => setIsSearched(false), 1000);
+    setTimeout(() => searchMovie(inputValue), 1001);
+    setInputValue('');
+    localStorage.setItem('searchText', inputValue);
+  }
 
   useEffect(() => {
     setCheckbox(JSON.parse(localStorage.getItem('checkboxData')));
@@ -87,7 +96,8 @@ const Movies = ({
 
           checkbox={checkbox}
           setCheckbox={setCheckbox}
-          onChange={handleSearch}/>
+          onChange={handleSearch}
+          onSubmit={handleSubmit}/>
 
           <h2 className={searchError ? 'movies__search-error' : 'movies__search-error movies__search-error-hidden'}>
             Ничего не найдено!

@@ -5,13 +5,8 @@ import { useLocation } from "react-router";
 
 const MoviesCardList = ({ movies, savedMovies, setSavedMovies, onClick, className, moviesCount, handleSaveMovies, checkbox, checkSavedCards}) => {
   const location = useLocation();
-/*   const filteredMoviesByDuration = movies.filter((movie) => {
-    if ((movie.duration <= 40 && checkbox) || !checkbox) {
-      return movie;
-    }
-  }); */
 
-  const filteredMoviesByDuration = movies.filter((card) => {
+  const filteredByDuration = movies.filter((card) => {
     if (location.pathname === '/movies') {
       return ((card.duration <= 40 && checkbox) || !checkbox) ? card : null;
     }
@@ -22,7 +17,7 @@ const MoviesCardList = ({ movies, savedMovies, setSavedMovies, onClick, classNam
 
   return (
     <ul className="cards">
-      {(filteredMoviesByDuration.slice(0, moviesCount).map((movie) =>
+      {(filteredByDuration.slice(0, moviesCount).map((movie) =>
           <MoviesCard
             movie={movie}
             key={movie.id || movie._id}

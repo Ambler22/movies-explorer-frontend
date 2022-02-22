@@ -173,17 +173,8 @@ const filterMovies = (data, text) => {
     localStorage.setItem('searchSaved', searchResult);
   }
 
- /*  const searchResult = JSON.stringify(searchList);
-  localStorage.setItem('search', searchResult);  */
-
   return searchList;
 };
-
-/* useEffect(() => {
-  if (localStorage.getItem('saved')) {
-      setSavedMovies(JSON.parse(localStorage.getItem('saved')));
-  }
-}, [navigate]); */
 
 useEffect(() => {
   if (isLoggedIn) {
