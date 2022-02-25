@@ -214,6 +214,25 @@ const showProfilePopup = () => {
   return () => document.removeEventListener('keydown', closeErrorPopupByEsc)
 }, []);
 
+const renderMainWithLoggin = () => {
+  return (
+    <>
+      <Header isLoggedIn={token} />
+      <Main />
+      <Footer />
+    </>
+  )
+};
+
+const navigateLoggedInUser = () => {
+  if (location.pathname === '/signup') {
+    return isLoggedIn ? renderMainWithLoggin() : <Register handleRegistration={handleRegistration} />
+  }
+  if (location.pathname === '/signin') {
+    return isLoggedIn ? renderMainWithLoggin() : <Login handleAuthorization={handleAuthorization} />
+  }
+};
+
     return (
       <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -281,8 +300,8 @@ const showProfilePopup = () => {
             </ProtectedRoute>
           } />
 
-          <Route path='/signup' element={<Register handleRegistration={handleRegistration}/>} />
-          <Route path='/signin' element={<Login handleAuthorization={handleAuthorization}/>} />
+          <Route path='/signup' element={navigateLoggedInUser()} />
+          <Route path='/signin' element={navigateLoggedInUser()} />
           <Route path='*' element={<PagesNotFound />} />
         </Routes>
       </div>

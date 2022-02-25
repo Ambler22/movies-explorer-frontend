@@ -1,10 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router";
 
 
-const MoviesCardList = ({ movies, savedMovies, setSavedMovies, onClick, className, moviesCount, handleSaveMovies, checkbox, checkSavedCards}) => {
+const MoviesCardList = ({ movies, savedMovies, setSavedMovies, onClick, className, /* moviesCount, */ handleSaveMovies, checkbox, checkSavedCards}) => {
   const location = useLocation();
+
+  const [moviesCount, setMoviesCount] = useState(0);
+  const windowWidth = document.documentElement.clientWidth;
+
+  function renderMovies() {
+    if (windowWidth >= 1000) {
+        return setMoviesCount(12);
+    }
+    if (windowWidth >= 768) {
+        return setMoviesCount(8);
+    } else {
+        setMoviesCount(5);
+    }
+    return setMoviesCount(5);
+}
+
+const resizeMovies = (evt) => {
+    if (evt.target.innerWidth >= 768) {
+        setMoviesCount(12);
+    } else if (evt.target.innerWidth >= 568) {
+        setMoviesCount(8);
+    } else {
+        setMoviesCount(5);
+    }
+}
+
+const handleAddMovies = () => {
+    if (windowWidth < 480) {
+        setMoviesCount((moviesCount) + 1);
+    } else if (windowWidth < 768) {
+        setMoviesCount((moviesCount) + 2);
+    } else if (windowWidth > 767) {
+        setMoviesCount((moviesCount) + 3);
+    }
+}
+
+useEffect(() => {
+  renderMovies();
+  window.addEventListener('resize', (evt) => resizeMovies(evt));
+  return () => {
+      window.removeEventListener('resize', resizeMovies);
+  }
+}, []);
 
   const filteredByDuration = movies.filter((card) => {
     if (location.pathname === '/movies') {
@@ -16,6 +59,7 @@ const MoviesCardList = ({ movies, savedMovies, setSavedMovies, onClick, classNam
   });
 
   return (
+    <>
     <ul className="cards">
       {(filteredByDuration.slice(0, moviesCount).map((movie) =>
           <MoviesCard
@@ -32,6 +76,10 @@ const MoviesCardList = ({ movies, savedMovies, setSavedMovies, onClick, classNam
           />
       ))}
     </ul>
+    { (moviesCount >= filteredByDuration.length) ? null :
+      <button className="movies__button" onClick={handleAddMovies}>Еще</button>
+    }
+    </>
   )
 };
 

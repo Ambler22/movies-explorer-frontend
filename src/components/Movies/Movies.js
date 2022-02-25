@@ -5,53 +5,11 @@ import Preloader from '../Movies/Preloader/Preloader';
 
 const Movies = ({
     movies, setMovies, searchMovie, savedMovies, setSavedMovies, handleSaveMovies, searchError, setSearchError,
-    checkbox, setCheckbox
+    checkbox, setCheckbox,
   }) => {
 
-  const [moviesCount, setMoviesCount] = useState(0);
   const [isSearched, setIsSearched] = useState(false);
-  const windowWidth = document.documentElement.clientWidth;
   const [inputValue, setInputValue] = useState('' || localStorage.getItem('searchText'));
-
-  function renderMovies() {
-      if (windowWidth >= 1000) {
-          return setMoviesCount(12);
-      }
-      if (windowWidth >= 768) {
-          return setMoviesCount(8);
-      } else {
-          setMoviesCount(5);
-      }
-      return setMoviesCount(5);
-  }
-
-  const resizeMovies = (evt) => {
-      if (evt.target.innerWidth >= 768) {
-          setMoviesCount(12);
-      } else if (evt.target.innerWidth >= 568) {
-          setMoviesCount(8);
-      } else {
-          setMoviesCount(5);
-      }
-  }
-
-  const handleAddMovies = () => {
-      if (windowWidth < 480) {
-          setMoviesCount((moviesCount) + 1);
-      } else if (windowWidth < 768) {
-          setMoviesCount((moviesCount) + 2);
-      } else if (windowWidth > 767) {
-          setMoviesCount((moviesCount) + 3);
-      }
-  }
-
-  useEffect(() => {
-    renderMovies();
-    window.addEventListener('resize', (evt) => resizeMovies(evt));
-    return () => {
-        window.removeEventListener('resize', resizeMovies);
-    }
-  }, []);
 
    useEffect(() => {
     const searchResult = localStorage.getItem('search');
@@ -108,7 +66,7 @@ const Movies = ({
             movies={movies}
             setMovies={setMovies}
 
-            moviesCount={moviesCount}
+            /* moviesCount={moviesCount} */
 
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
@@ -116,9 +74,6 @@ const Movies = ({
 
             checkbox={checkbox}
             setCheckbox={setCheckbox} /> : null)}
-            { (moviesCount >= movies.length) ? null :
-              <button className="movies__button" onClick={handleAddMovies}>Еще</button>
-            }
       </div>
 
     </section>
