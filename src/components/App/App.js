@@ -131,12 +131,13 @@ const App = () => {
               setMovies(filterMovies(searchList, text));
           }
       }
-      if (location.pathname === '/saved-movies') {
+      else if (location.pathname === '/saved-movies') {
           api.getSavedMovies(jwt)
               .then((res) => {
                   setSavedMovies(filterMovies(res, text));
-                  const saved = JSON.parse(res);
-                  localStorage.setItem('saved', saved);
+                  localStorage.setItem('savedFilms', JSON.stringify(res));
+                  // const saved = JSON.parse(res);
+                  //localStorage.setItem('savedQ', saved);
               })
               .catch((err) => console.log(err))
       }
@@ -187,6 +188,13 @@ useEffect(() => {
       }
   }
 }, [savedMovies, navigate, isLoggedIn]);
+
+useEffect(() => {
+  api.getSavedMovies(localStorage.getItem('jwt'))
+  .then((res) => {
+    setSavedMovies(res)
+  })
+}, []);
 
 useEffect(() => {
   if (savedMovies) {

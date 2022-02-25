@@ -25,7 +25,7 @@ const SearchForm = ({ searchMovie, setIsSearched, checkSavedCards, setCheckSaved
       <fieldset className="sharch-form__content">
         <div className="sharch-form__box">
           <input className="sharch-form__input" type="search" placeholder="Фильм" id="film" required="false"
-            onChange={onChange} defaultValue = { setSearchValue() || ''} ></input>
+            onChange={onChange} defaultValue = {setSearchValue() || ''} ></input>
           <button className="sharch-form__button" onClick={onSubmit}></button>
         </div>
         <FilterCheckbox onClick={handleCheckbox} defaultChecked={checkbox} checkSavedCards={checkSavedCards} setCheckSavedCards={setCheckSavedCards}/>

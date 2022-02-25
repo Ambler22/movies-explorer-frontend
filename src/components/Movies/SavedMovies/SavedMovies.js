@@ -2,18 +2,10 @@ import React, { useState, useEffect } from "react";
 import SearchForm from "../SharchForm/SharchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from '../Preloader/Preloader';
-import api from "../../../utils/MainApi";
 
 const SavedMovies = ({ movies, setMovies, savedMovies, setSavedMovies, searchMovie, searchError, setSearchError, checkSavedCards, setCheckSavedCards}) => {
   const [isSearched, setIsSearched] = useState(false);
   const [inputValue, setInputValue] = useState('' || localStorage.getItem('savedSearchText'));
-  
-    useEffect(() => {
-      api.getSavedMovies(localStorage.getItem('jwt'))
-      .then((res) => {
-        setSavedMovies(res)
-      })
-    }, []);
 
     useEffect(() => {
       setSearchError(false);
@@ -27,6 +19,13 @@ const SavedMovies = ({ movies, setMovies, savedMovies, setSavedMovies, searchMov
     }
   }, [setCheckSavedCards]);
 
+  useEffect(() => {
+    if (localStorage.getItem('savedFilms')) {
+      setSavedMovies(JSON.parse(localStorage.getItem('savedFilms')));
+      console.log('тест')
+    }
+  }, [setSavedMovies]);
+
   const handleSearch = (e) => {
     setInputValue(e.target.value);
   };
@@ -36,7 +35,6 @@ const SavedMovies = ({ movies, setMovies, savedMovies, setSavedMovies, searchMov
     setIsSearched(true)
     setTimeout(() => setIsSearched(false), 1000);
     setTimeout(() => searchMovie(inputValue), 1001);
-    setInputValue('');
     localStorage.setItem('savedSearchText', inputValue);
   }
 

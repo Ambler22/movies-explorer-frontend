@@ -18,11 +18,11 @@ const Movies = ({
     }
 }, [setMovies]);
 
- useEffect(() => {
+/*  useEffect(() => {
    if (localStorage.getItem('saved')) {
      setSavedMovies(JSON.parse(localStorage.getItem('saved')));
    }
- }, [setSavedMovies])
+ }, [setSavedMovies]) */
 
   useEffect(() => {
     setSearchError(false);
@@ -37,8 +37,8 @@ const Movies = ({
     setIsSearched(true)
     setTimeout(() => setIsSearched(false), 1000);
     setTimeout(() => searchMovie(inputValue), 1001);
-    setInputValue('');
     localStorage.setItem('searchText', inputValue);
+    console.log(inputValue);
   }
 
   useEffect(() => {
@@ -65,8 +65,6 @@ const Movies = ({
           <MoviesCardList
             movies={movies}
             setMovies={setMovies}
-
-            /* moviesCount={moviesCount} */
 
             savedMovies={savedMovies}
             setSavedMovies={setSavedMovies}
