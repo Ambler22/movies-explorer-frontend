@@ -46,7 +46,8 @@ const App = () => {
   // Данные 
   useEffect(()=> {
     if (token) {
-      auth.getData(token)
+      //auth.getData(token)
+      api.checkTokenOnServer(token)
       .then((userInfo) => {
         setIsLoggedIn(true);
         setIsRegistered(true);
@@ -135,9 +136,7 @@ const App = () => {
           api.getSavedMovies(jwt)
               .then((res) => {
                   setSavedMovies(filterMovies(res, text));
-                  localStorage.setItem('savedFilms', JSON.stringify(res));
-                  // const saved = JSON.parse(res);
-                  //localStorage.setItem('savedQ', saved);
+                  localStorage.setItem('saved', JSON.stringify(res));
               })
               .catch((err) => console.log(err))
       }

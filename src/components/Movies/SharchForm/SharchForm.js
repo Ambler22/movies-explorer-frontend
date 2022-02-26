@@ -17,7 +17,7 @@ const SearchForm = ({ searchMovie, setIsSearched, checkSavedCards, setCheckSaved
   };
 
   const setSearchValue = () => {
-    return location.pathname === '/movies' ? localStorage.getItem('searchText') : localStorage.getItem('savedSearchText');
+    return location.pathname === '/movies' ? localStorage.getItem('searchText') : localStorage.getItem('savedSearchText') ;
   };
 
   return (

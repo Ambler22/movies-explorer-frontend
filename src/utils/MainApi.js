@@ -20,6 +20,18 @@ class Api {
     return headers;
   };
 
+  checkTokenOnServer = (token) => {
+    return fetch(`${this._url}/users/me`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+    .then((res) => this._getResponseData(res));
+};
+
   // user
 
   getUserInfo() {

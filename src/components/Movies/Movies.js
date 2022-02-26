@@ -18,11 +18,11 @@ const Movies = ({
     }
 }, [setMovies]);
 
-/*  useEffect(() => {
+ useEffect(() => {
    if (localStorage.getItem('saved')) {
      setSavedMovies(JSON.parse(localStorage.getItem('saved')));
    }
- }, [setSavedMovies]) */
+ }, [setSavedMovies])
 
   useEffect(() => {
     setSearchError(false);

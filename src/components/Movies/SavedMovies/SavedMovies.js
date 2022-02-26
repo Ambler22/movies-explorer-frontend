@@ -20,8 +20,8 @@ const SavedMovies = ({ movies, setMovies, savedMovies, setSavedMovies, searchMov
   }, [setCheckSavedCards]);
 
   useEffect(() => {
-    if (localStorage.getItem('savedFilms')) {
-      setSavedMovies(JSON.parse(localStorage.getItem('savedFilms')));
+    if (localStorage.getItem('saved')) {
+      setSavedMovies(JSON.parse(localStorage.getItem('saved')));
       console.log('тест')
     }
   }, [setSavedMovies]);
