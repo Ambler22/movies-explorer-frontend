@@ -35,6 +35,24 @@
   cursor: pointer;
 }
 
+.movies__search-error {
+  display: block;
+  margin: 0;
+  padding-top: 10%;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+}
+
+.movies__search-error-hidden {
+  display: none;
+}
+
 @media (max-width: 1180px) {
   .movies {
     padding-left: 30px;
@@ -46,6 +64,12 @@
   .movies__button {
     margin-top: 63px;
   }
+
+  .movies__search-error {
+    font-size: 40px;
+    line-height: 52px;
+    max-width: 680px;
+  }
 }
 
 @media (max-width: 590px) {
@@ -56,5 +80,11 @@
 
   .movies__button {
     margin: 57px 0 80px 0;
+  }
+
+  .movies__search-error {
+    font-size: 29px;
+    line-height: 37px;
+    max-width: 292px;
   }
 }

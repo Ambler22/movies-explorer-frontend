@@ -40,11 +40,6 @@
 }
 
 .promo__navigation_button {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  color: #FFFFFF;
   background-color: #303030;
   width: 96px;
   height: 36px;
@@ -52,6 +47,15 @@
   border-radius: 10px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.promo__navigation_link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
 .promo__navigation_button:last-of-type {
